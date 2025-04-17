@@ -17,5 +17,5 @@ def check_for_incoming_data():
 print("Listening for incoming data...")
 while True:
     check_for_incoming_data()  # Continuously check for incoming data
-    time.sleep(0.1)  # Small delay to avoid excessive CPU usage
+    time.sleep(0.1)  # Small delay 
 

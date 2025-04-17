@@ -17,15 +17,24 @@ def receive_thread():
 # Start the receive thread
 _thread.start_new_thread(receive_thread, ())
 
+def send_command(command: str):
+    """Send an AT command and handle the response."""
+    uart.write(command + "\r\n")  # Send the AT command, \r\n is required by AT commands
+    print(f"Sent: {command}")
+    time.sleep(0.2)
+    
+
 # Main thread for user input
-print("Listening for incoming data. Type messages to send them:")
+print("****LoRa Tx and Rx****")
 while True:
     try:
-        # Get user input for sending data
-        message = input("Enter a message to send: ").strip()
-        if message:  # If a message is entered
-            uart.write(message + "\r\n")  # Send the message
-            print(f"Sent: {message}")
+        user_input = input("Enter AT Command: ").strip()
+        
+        if not user_input:
+            print("Command cannot be empty.")
+            continue
+        
+        send_command(user_input)
     except KeyboardInterrupt:
         print("\nExiting...")
         break
